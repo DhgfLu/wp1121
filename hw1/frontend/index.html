@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>todo list</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="index.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js"
+      integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <div id='home_page'>
+      <h1 id="my_diary">My Diary</h1>
+      <button id="add_diary" >新增日記本</button>
+      <section id="todos"></section>
+    </div>
+    <div id="write_diary_page" style="display: none;">
+      <div id="todo-input-container">
+        <input type="text" id="todo-input" placeholder="new diary" tabindex="1" />
+        <button id="todo-add" tabindex="3">save</button>
+      </div>
+      <button id="cancel_button">cancel</button>
+      <select id="mood_select">
+        <option value="">--how's everything doing--</option>
+        <option value="happy">happy</option>
+        <option value="angry">angry</option>
+        <option value="sad">sad</option>
+      </select>
+      <select id="tag_select">
+        <option value="">--what's this about--</option>
+        <option value="schoolwork">schoolwork</option>
+        <option value="relationship">relationship</option>
+        <option value="club">club</option>
+      </select>
+      <input id='date' type="date"/>
+      <textarea
+        id="todo-description-input"
+        placeholder="enter diary"
+        tabindex="2"
+      ></textarea>
+    </div>
+  </body>
+  <template id="todo-item-template">
+    <details id="" class="todo-item">
+      <summary>
+        <div>
+          <input data-id="" type="checkbox" style="display: none;" />
+          <p class="todo-title">todo 1</p>
+          <p class="diary-mood"></p>
+          <p class="diary-tag"></p>
+          <p class="diary-date"></p>
+        </div>
+        <button data-id="" class="delete-todo">delete</button>
+        <button id="edit-button" class="edit-button">edit</button>
+      </summary>
+      <p class="todo-description">todo 1 description</p>
+    </details>
+  </template>
+</html>
