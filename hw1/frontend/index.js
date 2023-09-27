@@ -10,7 +10,18 @@ async function main() {
   setupEventListeners();
   try {
     const todos = await getTodos();
-    todos.forEach((todo) => renderTodo(todo));
+    const moodfilter = document.querySelector("#mood_filter");
+    const tagfilter = document.querySelector("#tag_filter");
+    for (var i = 0; i < todos.length; i++) {
+      if (moodfilter.value == (todos[i].mood) || moodfilter.value == 'all'){
+        if(tagfilter.value == (todos[i].tag) || tagfilter.value == 'all'){
+          if(todos[i].title&&todos[i].description&&todos[i].mood&&todos[i].tag&&todos[i].date){
+            renderTodo(todos[i]);
+          }
+        }
+      }
+    }
+    
   } catch (error) {
     alert("Failed to load todos!");
   }
@@ -20,6 +31,7 @@ function setupEventListeners() {
   const addDiaryButton = document.querySelector("#add_diary");
   const addTodoButton = document.querySelector("#todo-add");
   const todoInput = document.querySelector("#todo-input");
+  const filterbutton = document.querySelector('#filter');
   const todoDescriptionInput = document.querySelector(
     "#todo-description-input"
   );
@@ -63,59 +75,61 @@ function setupEventListeners() {
       document.querySelector('#write_diary_page').style.display = 'none';
     }
   });
-  // editbutton.addEventListener("click", async () => {
-  //   document.querySelector('#home_page').style.display = 'none';
-  //   document.querySelector('#write_diary_page').style.display = 'block';
-  // });
   addTodoButton.addEventListener("click", async () => {
     //save button pressed
-    const title = todoInput.value;
-    const description = todoDescriptionInput.value;
-    const mood = diaryMood.value;
-    const tag = diaryTag.value;
-    const date = diaryDate.value;
-    if (!title) {
-      alert("Please enter a todo title!");
-      return;
+    if(!event.detail || event.detail == 1){
+      const title = todoInput.value;
+      const description = todoDescriptionInput.value;
+      const mood = diaryMood.value;
+      const tag = diaryTag.value;
+      const date = diaryDate.value;
+      if (!title) {
+        alert("Please enter a todo title!");
+        return;
+      }
+      if (!description) {
+        alert("Please enter some words!");
+        return;
+      }
+      if (!mood) {
+        alert("Please select your mood!");
+        return;
+      }
+      if (!date || (date.slice(0,4)) > 2023) {
+        alert("Please enter valid date!");
+        return;
+      }
+      if (!tag) {
+        alert("Please select your tag!");
+        return;
+      }
+      try {
+        const todo = await createTodo({ title, description, mood, tag, date });
+        renderTodo(todo);
+      } catch (error) {
+        alert("Failed to create todo!");
+        return;
+      }
+      todoInput.value = "";
+      todoDescriptionInput.value = "";
+      diaryMood.value = '';
+      diaryTag.value = '';
+      diaryDate.value = '';
+      if (document.querySelector('#home_page').style.display === 'none') {
+        document.querySelector('#home_page').style.display = 'block';
+      } else{
+        document.querySelector('#home_page').style.display = 'none';
+      }
+      if (document.querySelector('#write_diary_page').style.display === 'none') {
+        document.querySelector('#write_diary_page').style.display = 'block';
+      } else{
+        document.querySelector('#write_diary_page').style.display = 'none';
+      }
+      location.reload(); 
     }
-    if (!description) {
-      alert("Please enter some words!");
-      return;
-    }
-    if (!mood) {
-      alert("Please select your mood!");
-      return;
-    }
-    if (!date) {
-      alert("Please enter date!");
-      return;
-    }
-    if (!tag) {
-      alert("Please select your tag!");
-      return;
-    }
-    try {
-      const todo = await createTodo({ title, description, mood, tag, date });
-      renderTodo(todo);
-    } catch (error) {
-      alert("Failed to create todo!");
-      return;
-    }
-    todoInput.value = "";
-    todoDescriptionInput.value = "";
-    diaryMood.value = '';
-    diaryTag.value = '';
-    diaryDate.value = '';
-    if (document.querySelector('#home_page').style.display === 'none') {
-      document.querySelector('#home_page').style.display = 'block';
-    } else{
-      document.querySelector('#home_page').style.display = 'none';
-    }
-    if (document.querySelector('#write_diary_page').style.display === 'none') {
-      document.querySelector('#write_diary_page').style.display = 'block';
-    } else{
-      document.querySelector('#write_diary_page').style.display = 'none';
-    }
+  });
+  filterbutton.addEventListener("click", async () => {
+    // renderTodo(todo);
     location.reload(); 
   });
 }

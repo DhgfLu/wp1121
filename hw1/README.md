@@ -1,9 +1,16 @@
-b11901147呂嘉恩 wp1121 hw1//
-pretty much the same as ric's//
-no additional packages/modules used//
-please let me survive hw1 :)//
-Best Regards,//
-Dhgf|your classmate//
+b11901147呂嘉恩 wp1121 hw1
+pretty much the same as ric's
+no additional packages/modules used
+my diary has a title and a content though hw1 doesnt require a title
+make sure your mongodb is clean(i made some fool-proof), but please don't try to get me dead :(
+for Perfect, i did filter and date checking(3 choose 2)
+Filter: select what you want to see and press filter
+render only the ones you choose by using if-else
+Date checking: make sure the year is less than 2023(0123 is valid, i suppose(maybe you're jesus' grandchildren)), and the date itself is automacticaaly checked by the html box
+please let me perfect hw1 :)
+or atleast pass :)
+Best Regards,
+Dhgf | your classmate
 
 # 112-1-unit1-todo-list
 
